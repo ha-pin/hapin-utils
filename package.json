@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ha-pin/hapin-js.git"
+    "url": "git+https://github.com/ha-pin/hapin-utils.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Herbert He<Herbert.He0229@gmail.com>",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ha-pin/hapin-js/issues"
+    "url": "https://github.com/ha-pin/hapin-utils/issues"
   },
-  "homepage": "https://github.com/ha-pin/hapin-js#readme",
+  "homepage": "https://github.com/ha-pin/hapin-utils#readme",
   "devDependencies": {
     "tsup": "^5.11.13",
     "typescript": "^4.6.2"
