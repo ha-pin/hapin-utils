@@ -2,9 +2,13 @@
   "name": "hapin-utils",
   "version": "1.0.0",
   "description": "Hapin JavaScript(TypeScript) 开放工具包",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -17,6 +21,12 @@
   },
   "homepage": "https://github.com/ha-pin/hapin-utils#readme",
   "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/jest": "^27.4.1",
+    "babel-jest": "^27.5.1",
+    "jest": "^27.5.1",
     "tsup": "^5.11.13",
     "typescript": "^4.6.2"
   }
