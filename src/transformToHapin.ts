@@ -111,6 +111,8 @@ class HapinTransformer {
             // 处理普通字符
             if (Object.keys(NormalChar).includes(`C${c}`)) {
                 this._res += NormalChar[`C${c}`]
+            } else {
+                this._res += this._word[this._index]
             }
 
             this.addSeparator(easy)
@@ -134,5 +136,5 @@ export const transformToHapin = (o: string, easy = false) => {
         })
         .join(" ")
 
-    return res.replace(/(?=[\s])([ ]+)(?=[!-\/\:-\@])/g, "")
+    return res.replace(/(?=[\s])( +)(?=[!-\/\:-\@])/g, "")
 }
