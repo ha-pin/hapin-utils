@@ -90,7 +90,7 @@ class HapinTransformer {
 
         while (this._index < this._word.length) {
             const c = this._word[this._index].charCodeAt(0)
-            if (c === 1652) {
+            if ([1652, 1569].includes(c)) {
                 this._weakTone = true
                 this._index++
                 continue
