@@ -1,7 +1,7 @@
 // test("Get Special Char Unicode", () => {
-//     ;["ٵ", "ٶ", "ٷ", "ٸ"].forEach((item) => {
-//         console.log(`${item} -> ${item.charCodeAt(0)}`)
-//     })
+//     ;["ٵ", "ٶ", "ٷ", "ٸ", "ء"].forEach((item) => {
+//         console.log(`${item} -> ${item.charCodeAt(0)}`);
+//     });
 // })
 
 test("Get Normal Char Unicode", () => {
