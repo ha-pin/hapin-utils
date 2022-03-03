@@ -1,4 +1,4 @@
-enum HapinOld {
+enum HapinArabic {
     "," = "،",
     ";" = "؛",
     "?" = "؟",
@@ -35,7 +35,7 @@ enum HapinOld {
     "ye" = "ە",
 }
 
-class OldTransformer {
+class ArabicTransformer {
     private _word = ""
     private _index = 0
     private _res = ""
@@ -87,10 +87,10 @@ class OldTransformer {
             // 处理双字符字母
             if (c === "s") {
                 if (next === "h") {
-                    this._res += HapinOld["sh"]
+                    this._res += HapinArabic["sh"]
                     this._index += 2
                 } else {
-                    this._res += HapinOld["s"]
+                    this._res += HapinArabic["s"]
                     this._index++
                 }
                 continue
@@ -98,10 +98,10 @@ class OldTransformer {
 
             if (c === "g") {
                 if (next === "h") {
-                    this._res += HapinOld["gh"]
+                    this._res += HapinArabic["gh"]
                     this._index += 2
                 } else {
-                    this._res += HapinOld["g"]
+                    this._res += HapinArabic["g"]
                     this._index++
                 }
                 continue
@@ -109,7 +109,7 @@ class OldTransformer {
 
             if (c === "c") {
                 if (next === "h") {
-                    this._res += HapinOld["ch"]
+                    this._res += HapinArabic["ch"]
                     this._index += 2
                 } else {
                     this._index++
@@ -119,10 +119,10 @@ class OldTransformer {
 
             if (c === "n") {
                 if (next === "g") {
-                    this._res += HapinOld["ng"]
+                    this._res += HapinArabic["ng"]
                     this._index += 2
                 } else {
-                    this._res += HapinOld["n"]
+                    this._res += HapinArabic["n"]
                     this._index++
                 }
                 continue
@@ -130,10 +130,10 @@ class OldTransformer {
 
             if (c === "h") {
                 if (next === "h") {
-                    this._res += HapinOld["hh"]
+                    this._res += HapinArabic["hh"]
                     this._index += 2
                 } else {
-                    this._res += HapinOld["h"]
+                    this._res += HapinArabic["h"]
                     this._index++
                 }
                 continue
@@ -144,7 +144,7 @@ class OldTransformer {
                 if (next === "u") {
                     this.addWTM()
                 } else if (next === "e") {
-                    this._res += HapinOld["ye"]
+                    this._res += HapinArabic["ye"]
                     this._index += 2
                 } else {
                     this._index++
@@ -153,8 +153,8 @@ class OldTransformer {
             }
 
             // 处理常规字符
-            if (Object.keys(HapinOld).includes(c)) {
-                this._res += HapinOld[c]
+            if (Object.keys(HapinArabic).includes(c)) {
+                this._res += HapinArabic[c]
             } else {
                 this._res += c
             }
@@ -166,13 +166,13 @@ class OldTransformer {
     }
 }
 
-export const transformToOld = (h: string) => {
+export const transformToArabic = (h: string) => {
     const array = h
         .split(/( +)/g)
         .map((item) => item.trim())
         .filter((item) => !!item)
 
-    const res = array.map((item: string) => new OldTransformer(item).go()).join(" ")
+    const res = array.map((item: string) => new ArabicTransformer(item).go()).join(" ")
 
     // TODO 处理可能多余的空格
     return res

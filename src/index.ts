@@ -1,2 +1,2 @@
 export * from "./transformToHapin"
-export * from "./transformToOld"
+export * from "./transformToArabic"
