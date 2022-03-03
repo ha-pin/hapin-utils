@@ -12,5 +12,5 @@ test("Test TransformToHapin Easy", () => {
 
 test("Test TransformToHapin X", () => {
     const res = transformToHapin("ء", false);
-    expect(res).toEqual("x");
+    expect(res).toEqual("");
 });
