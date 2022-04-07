@@ -1,2 +1,3 @@
-export * from "./transformToHapin"
-export * from "./transformToArabic"
+export * from "./transformArabicToHapin"
+export * from "./transformHapinToArabic"
+export * from "./tranformCyrillicToHapin"

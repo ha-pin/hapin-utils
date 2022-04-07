@@ -36,144 +36,147 @@ enum HapinArabic {
 }
 
 class ArabicTransformer {
-    private _word = ""
-    private _index = 0
-    private _res = ""
-    private _omit = false
+    private _word = "";
+    private _index = 0;
+    private _res = "";
+    private _omit = false;
     constructor(word: string) {
-        this._word = word
+        this._word = word;
     }
 
     private omitTheWeakToneModification = () => {
         // 省略弱音符号问题
         // 匹配 k g ye 但是不匹配 ng gh
-        const tmp = this._word.replace(/([ng|gh])/g, "")
+        const tmp = this._word.replace(/([ng|gh])/g, "");
         if (/([k|g|ye])/g.test(tmp)) {
-            this._omit = true
+            this._omit = true;
         }
-    }
+    };
 
     // Weak tone modification
     private addWTM = () => {
         if (this._res[0].charCodeAt(0) !== 1652 && !this._omit) {
-            this._res = "ٴ" + this._res
+            this._res = "ٴ" + this._res;
         }
-        this._index++
-    }
+        this._index++;
+    };
 
     private next = () => {
         // 解决双字符的问题
-        return this._word[this._index + 1]
-    }
+        return this._word[this._index + 1];
+    };
 
     go = () => {
         if (!this._word) {
-            return ""
+            return "";
         }
 
         // 弱音符号省略检测
-        this.omitTheWeakToneModification()
+        this.omitTheWeakToneModification();
 
         while (this._index < this._word.length) {
-            const c = this._word[this._index]
-            const next = this.next()
+            const c = this._word[this._index];
+            const next = this.next();
 
             // 处理弱音符号
             if (c === "x") {
-                this.addWTM()
-                continue
+                this.addWTM();
+                continue;
             }
 
             // 处理双字符字母
             if (c === "s") {
                 if (next === "h") {
-                    this._res += HapinArabic["sh"]
-                    this._index += 2
+                    this._res += HapinArabic["sh"];
+                    this._index += 2;
                 } else {
-                    this._res += HapinArabic["s"]
-                    this._index++
+                    this._res += HapinArabic["s"];
+                    this._index++;
                 }
-                continue
+                continue;
             }
 
             if (c === "g") {
                 if (next === "h") {
-                    this._res += HapinArabic["gh"]
-                    this._index += 2
+                    this._res += HapinArabic["gh"];
+                    this._index += 2;
                 } else {
-                    this._res += HapinArabic["g"]
-                    this._index++
+                    this._res += HapinArabic["g"];
+                    this._index++;
                 }
-                continue
+                continue;
             }
 
             if (c === "c") {
                 if (next === "h") {
-                    this._res += HapinArabic["ch"]
-                    this._index += 2
+                    this._res += HapinArabic["ch"];
+                    this._index += 2;
                 } else {
-                    this._index++
+                    this._index++;
                 }
-                continue
+                continue;
             }
 
             if (c === "n") {
                 if (next === "g") {
-                    this._res += HapinArabic["ng"]
-                    this._index += 2
+                    this._res += HapinArabic["ng"];
+                    this._index += 2;
                 } else {
-                    this._res += HapinArabic["n"]
-                    this._index++
+                    this._res += HapinArabic["n"];
+                    this._index++;
                 }
-                continue
+                continue;
             }
 
             if (c === "h") {
                 if (next === "h") {
-                    this._res += HapinArabic["hh"]
-                    this._index += 2
+                    this._res += HapinArabic["hh"];
+                    this._index += 2;
                 } else {
-                    this._res += HapinArabic["h"]
-                    this._index++
+                    this._res += HapinArabic["h"];
+                    this._index++;
                 }
-                continue
+                continue;
             }
 
             if (c === "y") {
                 // 支持 yu -> xu
                 if (next === "u") {
-                    this.addWTM()
+                    this.addWTM();
                 } else if (next === "e") {
-                    this._res += HapinArabic["ye"]
-                    this._index += 2
+                    this._res += HapinArabic["ye"];
+                    this._index += 2;
                 } else {
-                    this._index++
+                    this._index++;
                 }
-                continue
+                continue;
             }
 
             // 处理常规字符
             if (Object.keys(HapinArabic).includes(c)) {
-                this._res += HapinArabic[c]
+                this._res += HapinArabic[c];
             } else {
-                this._res += c
+                this._res += c;
             }
-            this._index++
-            continue
+            this._index++;
+            continue;
         }
 
-        return this._res
-    }
+        return this._res;
+    };
 }
 
-export const transformToArabic = (h: string) => {
+export const transformHapinToArabic = (h: string) => {
     const array = h
+        .toLowerCase()
         .split(/( +)/g)
         .map((item) => item.trim())
-        .filter((item) => !!item)
+        .filter((item) => !!item);
 
-    const res = array.map((item: string) => new ArabicTransformer(item).go()).join(" ")
+    const res = array
+        .map((item: string) => new ArabicTransformer(item).go())
+        .join(" ");
 
     // TODO 处理可能多余的空格
-    return res
-}
+    return res;
+};

@@ -124,7 +124,7 @@ class HapinTransformer {
     }
 }
 
-export const transformToHapin = (o: string, easy = false) => {
+export const transformArabicToHapin = (o: string, easy = false) => {
     const array = o
         .split(/( +)/g)
         .map((item) => item.trim())
