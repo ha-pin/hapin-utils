@@ -144,6 +144,6 @@ test("Get Cyrillic Char Unicode", () => {
     const tmp1 = tmp.map((item) => [item.charCodeAt(0), item])
         .sort((a, b) => (a[0] as number) - (b[0] as number))
 
-    console.log(tmp)
-    console.log(tmp1.length)
+    // console.log(tmp)
+    // console.log(tmp1.length)
 })
