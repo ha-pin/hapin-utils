@@ -1,3 +1,10 @@
 # hapin-utils
 
 Hapin JavaScript(TypeScript) 开放工具包
+
+## API
+
+- `transformArabicToHapin(word: string): string` 将老文字转化为哈拼
+- `transformHapinToArabic(word: string): string` 将哈拼转化为老文字
+- `transformCyrillicToHapin(word: string): string` 将西里尔文字转化为哈拼
+- `transformCyrillicToArabic(word: string): string` 将西里尔文字转化为老文字
