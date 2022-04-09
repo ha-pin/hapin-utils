@@ -1,6 +1,20 @@
 # hapin-utils
 
-Hapin JavaScript(TypeScript) 开放工具包
+Hapin JavaScript(TypeScript) 开放工具包。
+
+## 安装
+
+```bash
+npm i hapin-utils
+```
+
+## 快速开始
+
+```js
+import { transformHapinToArabic } from 'hapin-utils'
+
+transformHapinToArabic('ara') // ارا
+```
 
 ## API
 

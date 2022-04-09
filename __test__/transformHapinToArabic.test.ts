@@ -1,8 +1,8 @@
 import { transformHapinToArabic } from "../src/transformHapinToArabic"
 
 test("Test TransformToArabic", () => {
-	const res = transformHapinToArabic("syelxam")
-	expect(res).toEqual("سەلام")
+    const res = transformHapinToArabic("sxalyem")
+    expect(res).toEqual("سالەم")
 })
 
 test("Test TransformToArabic", () => {
@@ -13,4 +13,9 @@ test("Test TransformToArabic", () => {
 test("Test TransformToArabic", () => {
     const res = transformHapinToArabic("bxer")
     expect(res).toEqual("ٴبىر")
+})
+
+test("Test TransformToArabic", () => {
+    const res = transformHapinToArabic("xa")
+    expect(res).toEqual("ٴا")
 })
