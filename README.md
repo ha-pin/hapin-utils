@@ -1,5 +1,8 @@
 # hapin-utils
 
+[![version](https://img.shields.io/npm/v/hapin-utils.svg)](https://www.npmjs.com/package/hapin-utils)
+[![download](https://img.shields.io/npm/dm/hapin-utils.svg)](https://www.npmjs.com/package/hapin-utils)
+
 Hapin JavaScript(TypeScript) 开放工具包。
 
 ## 安装
