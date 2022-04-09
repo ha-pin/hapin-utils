@@ -48,7 +48,7 @@ class ArabicTransformer {
         // 省略弱音符号问题
         // 匹配 k g ye 但是不匹配 ng gh
         const tmp = this._word.replace(/([ng|gh])/g, "");
-        if (/([k|g|ye])/g.test(tmp)) {
+        if (/([k|g])/.test(tmp) || /ye/.test(tmp)) {
             this._omit = true;
         }
     };
