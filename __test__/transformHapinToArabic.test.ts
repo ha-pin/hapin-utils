@@ -54,3 +54,13 @@ test('Test TransformToArabic', () => {
     const res = transformHapinToArabic(`hapin "Hapin  Go"`)
     expect(res).toEqual(`حاپين "Hapin  Go"`)
 })
+
+test('Test TransformToArabic', () => {
+    const res = transformHapinToArabic(`yw`)
+    expect(res).toEqual(`يۋ`)
+})
+
+test('Test TransformToArabic', () => {
+    const res = transformHapinToArabic(`c`)
+    expect(res).toEqual(`تس`)
+})

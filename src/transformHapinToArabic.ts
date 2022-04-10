@@ -178,6 +178,7 @@ class ArabicTransformer {
                     this._res += HapinArabic["ch"]
                     this._index += 2
                 } else {
+                    this._res += HapinArabic["t"] + HapinArabic["s"]
                     this._index++
                 }
                 continue
@@ -211,6 +212,18 @@ class ArabicTransformer {
                     this.addWTM()
                 } else if (next === "e") {
                     this._res += HapinArabic["ye"]
+                    this._index += 2
+                } else if (next === "w") {
+                    // yw -> iw
+                    this._res += HapinArabic["i"] + HapinArabic["w"]
+                    this._index += 2
+                } else if (next === "a") {
+                    // ya -> ia
+                    this._res += HapinArabic["i"] + HapinArabic["a"]
+                    this._index += 2
+                } else if (next === "o") {
+                    // yo -> io
+                    this._res += HapinArabic["i"] + HapinArabic["o"]
                     this._index += 2
                 } else {
                     this._index++
