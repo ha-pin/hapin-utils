@@ -1,3 +1,5 @@
+import { toLowerCase } from "./utils"
+
 enum HapinArabic {
     "," = "،",
     ";" = "؛",
@@ -116,7 +118,7 @@ class ArabicTransformer {
             return ""
         }
 
-        // 搜寻第一个空格位置
+        // 搜寻第一个 Flag 位置
         this.searchNextFlag()
         this.omitTheWeakToneModification()
 
@@ -228,23 +230,6 @@ class ArabicTransformer {
 
         return this._res
     }
-}
-
-const toLowerCase = (h: string) => {
-    // 匹配所有被引号包括的字符串不处理
-    let _quoted = false
-    return h.split("").map(item => {
-        if (item === `"`) {
-            _quoted = !_quoted
-            return item
-        }
-
-        if (_quoted) {
-            return item
-        } else {
-            return item.toLowerCase()
-        }
-    }).join("")
 }
 
 export const transformHapinToArabic = (h: string) => {

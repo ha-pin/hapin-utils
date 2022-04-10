@@ -1,3 +1,5 @@
+import { toLowerCase } from "./utils"
+
 enum CyrillicChar {
     "C1072" = "a",
     "C1073" = "b",
@@ -65,6 +67,25 @@ class HapinTransformer {
         this._word = word
     }
 
+    private combineSpace() {
+        this._res += " "
+        while (this._word[this._index + 1] === " ") {
+            this._index++
+        }
+        this._index++
+    }
+
+    private quoteWords() {
+        const pos = this._word.indexOf("\"", this._index + 1)
+        if (pos !== -1) {
+            this._res += `"${this._word.substring(this._index + 1, pos)}"`
+            this._index = pos + 1
+        } else {
+            this._res += `"${this._word.substring(this._index + 1)}"`
+            this._index = this._word.length - 1
+        }
+    }
+
     go = () => {
         if (!this._word) {
             return ""
@@ -72,6 +93,16 @@ class HapinTransformer {
 
         while (this._index < this._word.length) {
             const c = this._word[this._index].charCodeAt(0)
+
+            if (this._word[this._index] === " ") {
+                this.combineSpace()
+                continue
+            }
+
+            if (this._word[this._index] === `"`) {
+                this.quoteWords()
+                continue
+            }
 
             // 处理普通字符
             if (Object.keys(CyrillicChar).includes(`C${c}`)) {
@@ -89,15 +120,11 @@ class HapinTransformer {
 }
 
 export const transformCyrillicToHapin = (o: string) => {
-    const array = o
-        .toLowerCase()
-        .split(/( +)/g)
-        .map((item) => item.trim())
-        .filter((item) => !!item)
+    if(!o) {
+        return ""
+    }
 
-    const res = array
-        .map((item: string) => new HapinTransformer(handleTones(item)).go())
-        .join("")
+    const res = new HapinTransformer(handleTones(toLowerCase(o))).go()
 
-    return res.replace(/(?=[\s])( +)(?=[!-\/\:-\@])/g, "")
+    return res
 }
