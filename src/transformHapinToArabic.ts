@@ -40,14 +40,56 @@ class ArabicTransformer {
     private _index = 0
     private _res = ""
     private _omit = false
+    // 新词提取处理指针
+    private _flag = [0, 0]
     constructor(word: string) {
         this._word = word
+    }
+
+    private combineSpace() {
+        this._res += " "
+        while (this.next() === " ") {
+            this._index++
+        }
+        this._index++
+    }
+
+    private searchNextFlag() {
+        // 获取子字符串空格坐标
+        const pos = this._word.indexOf(" ", this._index)
+        const pos1 = this._word.indexOf("\"", this._index)
+        if (pos !== -1 && pos1 !== -1) {
+            this._flag = [this._flag[1], Math.min(pos, pos1)]
+        }
+
+        if (pos === -1 && pos1 !== -1) {
+            this._flag = [this._flag[1], pos1]
+        }
+
+        if (pos !== -1 && pos1 === -1) {
+            this._flag = [this._flag[1], pos]
+        }
+
+        if (pos === -1 && pos1 === -1) {
+            this._flag = [this._flag[1], this._word.length]
+        }
+    }
+
+    private quoteWords() {
+        const pos = this._word.indexOf("\"", this._index + 1)
+        if (pos !== -1) {
+            this._res += `"${this._word.substring(this._index + 1, pos)}"`
+            this._index = pos + 1
+        } else {
+            this._res += `"${this._word.substring(this._index + 1)}"`
+            this._index = this._word.length - 1
+        }
     }
 
     private omitTheWeakToneModification = () => {
         // 省略弱音符号问题
         // 匹配 k g ye 但是不匹配 ng gh
-        const tmp = this._word.replace(/([ng|gh])/g, "")
+        const tmp = this._word.substring(this._flag[0], this._flag[1]).replace(/([ng|gh])/g, "")
         if (/([k|g])/.test(tmp) || /ye/.test(tmp)) {
             this._omit = true
         }
@@ -74,12 +116,31 @@ class ArabicTransformer {
             return ""
         }
 
-        // 弱音符号省略检测
+        // 搜寻第一个空格位置
+        this.searchNextFlag()
         this.omitTheWeakToneModification()
 
         while (this._index < this._word.length) {
+            // 处理新词组标志
+            if (this._index > this._flag[1]) {
+                this.searchNextFlag()
+                this.omitTheWeakToneModification()
+            }
+
             const c = this._word[this._index]
             const next = this.next()
+
+            // 处理空格合并
+            if (c === " ") {
+                this.combineSpace()
+                continue
+            }
+
+            // 处理引用状态
+            if (c === "\"") {
+                this.quoteWords()
+                continue
+            }
 
             // 处理弱音符号
             if (c === "x") {
@@ -169,17 +230,29 @@ class ArabicTransformer {
     }
 }
 
+const toLowerCase = (h: string) => {
+    // 匹配所有被引号包括的字符串不处理
+    let _quoted = false
+    return h.split("").map(item => {
+        if (item === `"`) {
+            _quoted = !_quoted
+            return item
+        }
+
+        if (_quoted) {
+            return item
+        } else {
+            return item.toLowerCase()
+        }
+    }).join("")
+}
+
 export const transformHapinToArabic = (h: string) => {
-    const array = h
-        .toLowerCase()
-        .split(/( +)/g)
-        .map((item) => item.trim())
-        .filter((item) => !!item)
+    if (!h) {
+        return ""
+    }
 
-    const res = array
-        .map((item: string) => new ArabicTransformer(item).go())
-        .join(" ")
-
+    const res = new ArabicTransformer(toLowerCase(h)).go()
     // TODO 处理可能多余的空格
     return res
 }

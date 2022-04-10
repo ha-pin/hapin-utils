@@ -39,3 +39,18 @@ test("Test TransformToArabic", () => {
     const res = transformHapinToArabic("yu")
     expect(res).toEqual("ٴۇ")
 })
+
+test("Test TransformToArabic", () => {
+    const res = transformHapinToArabic(`hapin  jaqse`)
+    expect(res).toEqual(`حاپين جاقسى`)
+})
+
+test('Test TransformToArabic', () => {
+    const res = transformHapinToArabic(`hapin "Hapin"`)
+    expect(res).toEqual(`حاپين "Hapin"`)
+})
+
+test('Test TransformToArabic', () => {
+    const res = transformHapinToArabic(`hapin "Hapin  Go"`)
+    expect(res).toEqual(`حاپين "Hapin  Go"`)
+})
