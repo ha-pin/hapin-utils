@@ -7,7 +7,7 @@ const ipaCNAScheme: HapinDirectSchemeType = ["ipa-cna", {
     "g": "ɡ",
     "d": "d",
     "ye": "e",
-    "j": "ʤ",
+    "j": "dʒ",
     "z": "z",
     "i": "j",
     "k": "k",

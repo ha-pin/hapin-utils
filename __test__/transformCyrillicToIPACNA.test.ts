@@ -2,10 +2,10 @@ import { transformCyrillicToIPA_CNA } from "../src/cyrillic/transformCyrillicToI
 
 test("Test transformCyrillicToIPA_CNA", () => {
     const res = transformCyrillicToIPA_CNA("жақсы")
-    expect(res).toEqual("ʤɑqsə")
+    expect(res).toEqual("dʒɑqsə")
 })
 
 test("Test transformCyrillicToIPA_CNA", () => {
     const res = transformCyrillicToIPA_CNA(`жақсы "Hapin"`)
-    expect(res).toEqual(`ʤɑqsə "Hapin"`)
+    expect(res).toEqual(`dʒɑqsə "Hapin"`)
 })

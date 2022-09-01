@@ -7,7 +7,7 @@ const ipaCNAScheme: CyrillicSchemeType = ["ipa-cna", {
     "C1075": "ɡ",
     "C1076": "d",
     "C1077": "e",
-    "C1078": "ʤ",
+    "C1078": "dʒ",
     "C1079": "z",
     "C1080": "j",
     "C1081": "j",
