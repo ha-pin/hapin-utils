@@ -1,4 +1,4 @@
-import { transformArabicToHapin } from "../src/transformArabicToHapin"
+import { transformArabicToHapin } from "../src/arabic/transformArabicToHapin"
 
 test("Test transformArabicToHapin  Simple", () => {
     const res = transformArabicToHapin("جاقسى ، ەرلان", false)

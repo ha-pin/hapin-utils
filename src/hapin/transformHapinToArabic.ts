@@ -1,4 +1,4 @@
-import { toLowerCase } from "./utils"
+import { toLowerCase } from "../utils"
 
 enum HapinArabic {
     "," = "،",

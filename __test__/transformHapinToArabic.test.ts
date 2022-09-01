@@ -1,4 +1,4 @@
-import { transformHapinToArabic } from "../src/transformHapinToArabic"
+import { transformHapinToArabic } from "../src/hapin/transformHapinToArabic"
 
 test("Test TransformToArabic", () => {
     const res = transformHapinToArabic("sxalyem")

@@ -1,4 +1,4 @@
-import { transformCyrillicToHapin } from "../src/tranformCyrillicToHapin"
+import { transformCyrillicToHapin } from "../src/cyrillic/tranformCyrillicToHapin"
 
 test('Test transformCyrillicToHapin', () => {
     const res = transformCyrillicToHapin("жақсы")

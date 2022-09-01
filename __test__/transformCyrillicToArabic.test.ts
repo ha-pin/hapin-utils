@@ -1,4 +1,4 @@
-import { transformCyrillicToArabic } from "../src/transformCyrillicToArabic"
+import { transformCyrillicToArabic } from "../src/cyrillic/transformCyrillicToArabic"
 
 test("Test transformCyrillicToArabic", () => {
     const res = transformCyrillicToArabic("жақсы")
