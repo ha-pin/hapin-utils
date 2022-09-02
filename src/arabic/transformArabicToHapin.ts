@@ -83,6 +83,14 @@ class HapinTransformer {
         }
     }
 
+    private combineSpace() {
+        this._res += " "
+        while (this._word[this._index + 1] === " ") {
+            this._index++
+        }
+        this._index++
+    }
+
     go = (easy: boolean) => {
         if (!this._word) {
             return ""
@@ -90,6 +98,11 @@ class HapinTransformer {
 
         while (this._index < this._word.length) {
             const c = this._word[this._index].charCodeAt(0)
+            if (this._word[this._index] === " ") {
+                this.combineSpace()
+                continue
+            }
+
             if ([1652, 1569].includes(c)) {
                 this._weakTone = true
                 this._index++
@@ -137,5 +150,5 @@ export const transformArabicToHapin = (o: string, easy = false) => {
         })
         .join(" ")
 
-    return res.replace(/(?=[\s])( +)(?=[!-\/\:-\@])/g, "")
+    return res.replace(/(?=[\s])( +)(?=[\!\#-\/\:-\@])/g, "")
 }

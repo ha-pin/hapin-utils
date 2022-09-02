@@ -211,13 +211,11 @@ class HapinTransformer {
     }
 }
 
-// TODO 根据修正shsh
 export const transformHapinToExtend = (h: string, scheme: HapinDirectSchemeType) => {
     if (!h) {
         return ""
     }
 
     const res = new HapinTransformer(toLowerCase(h), scheme).go()
-    // TODO 处理可能多余的空格
-    return res
+    return res.replace(/(?=[\s])( +)(?=[\!\#-\/\:-\@])/g, "")
 }

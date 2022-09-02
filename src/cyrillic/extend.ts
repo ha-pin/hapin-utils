@@ -131,5 +131,5 @@ export const transformCyrillicToExtend = (o: string, scheme: CyrillicSchemeType)
 
     const res = new HapinTransformer(handleTones(toLowerCase(o)), scheme[1]).go()
 
-    return res
+    return res.replace(/(?=[\s])( +)(?=[\!\#-\/\:-\@])/g, "")
 }

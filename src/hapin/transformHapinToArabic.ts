@@ -251,6 +251,6 @@ export const transformHapinToArabic = (h: string) => {
     }
 
     const res = new ArabicTransformer(toLowerCase(h)).go()
-    // TODO 处理可能多余的空格
-    return res
+
+    return res.replace(/(?=[\s])( +)(?=[\!\#-\/\:-\@])/g, "")
 }
