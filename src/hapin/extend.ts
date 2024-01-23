@@ -2,40 +2,40 @@ import { toLowerCase } from "../utils"
 
 interface IHapinChar {
     [key: string]: string | undefined
-    "a": string
-    "b": string
-    "t": string
-    "j": string
-    "h": string
-    "d": string
-    "r": string
-    "z": string
-    "s": string
-    "sh": string
-    "gh": string
-    "f": string
-    "q": string
-    "k": string
-    "l": string
-    "m": string
-    "n": string
-    "o": string
-    "e": string
-    "i": string
-    "p": string
-    "ch": string
-    "ng": string
-    "g": string
-    "hh": string
-    "v": string
-    "u": string
-    "w": string
-    "ye": string
-    "xa": string
-    "xo": string
-    "xe": string
-    "xu": string
-    "shsh"?: string
+    a: string
+    b: string
+    t: string
+    j: string
+    h: string
+    d: string
+    r: string
+    z: string
+    s: string
+    sh: string
+    gh: string
+    f: string
+    q: string
+    k: string
+    l: string
+    m: string
+    n: string
+    o: string
+    e: string
+    i: string
+    p: string
+    ch: string
+    ng: string
+    g: string
+    hh: string
+    v: string
+    u: string
+    w: string
+    ye: string
+    xa: string
+    xo: string
+    xe: string
+    xu: string
+    shsh?: string
 }
 
 export type HapinDirectSchemeType = [string, IHapinChar]
@@ -82,7 +82,7 @@ class HapinTransformer {
     }
 
     private quoteWords() {
-        const pos = this._word.indexOf("\"", this._index + 1)
+        const pos = this._word.indexOf('"', this._index + 1)
         if (pos !== -1) {
             this._res += `"${this._word.substring(this._index + 1, pos)}"`
             this._index = pos + 1
@@ -211,7 +211,10 @@ class HapinTransformer {
     }
 }
 
-export const transformHapinToExtend = (h: string, scheme: HapinDirectSchemeType) => {
+export const transformHapinToExtend = (
+    h: string,
+    scheme: HapinDirectSchemeType
+) => {
     if (!h) {
         return ""
     }

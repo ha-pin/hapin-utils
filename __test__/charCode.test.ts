@@ -147,3 +147,45 @@ test("Get Cyrillic Char Unicode", () => {
     // console.log(tmp)
     // console.log(tmp1.length)
 })
+
+test('Test New Kazakh Char', () => {
+    // 测试哈萨克语新文字unicode
+    const aa = ["A", "a",
+        "Ә", "ә",
+        "B", "b",
+        "V", "v",
+        "G", "g",
+        "Ƣ", "ƣ",
+        "D", "d",
+        "Ê", "ê",
+        "J", "j",
+        "Z", "z",
+        "Y", "y",
+        "K", "k",
+        "Қ", "қ",
+        "L", "l",
+        "M", "m",
+        "N", "n",
+        // "Ng", "ng",
+        "O", "o",
+        "Ө", "ө",
+        "P", "p",
+        "R", "r",
+        "S", "s",
+        "T", "t",
+        "W", "w",
+        "U", "u",
+        "Ü", "ü",
+        "F", "f",
+        "H", "h",
+        "Ⱨ", "ⱨ",
+        "Q", "q",
+        "X", "x",
+        "E", "e",
+        "I", "i",
+        // "Yw",
+        // "Ya"
+    ].map(a => a.toLowerCase().charCodeAt(0))
+
+    console.log(aa)
+})
