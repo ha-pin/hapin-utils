@@ -79,8 +79,11 @@ class HapinTransformer {
 
     private addSeparator = (easy: boolean) => {
         if (easy && this._index !== this._word.length - 1) {
-            this._res += `'`
+            this._res += `'\u200b`
+            return
         }
+
+        this._res += `\u200b`
     }
 
     private combineSpace() {
@@ -151,4 +154,10 @@ export const transformArabicToHapin = (o: string, easy = false) => {
         .join(" ")
 
     return res.replace(/(?=[\s])( +)(?=[\!\#-\/\:-\@])/g, "")
+}
+
+export const transformArabicToHapinArray = (o: string) => {
+    return transformArabicToHapin(o)
+        .split(/\u200b/)
+        .filter((s) => !!s)
 }

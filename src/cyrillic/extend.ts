@@ -91,6 +91,10 @@ class HapinTransformer {
         }
     }
 
+    private addSeparator() {
+        this._res += `\u200b`
+    }
+
     go = () => {
         if (!this._word || !this._cc) {
             return ""
@@ -101,11 +105,13 @@ class HapinTransformer {
 
             if (this._word[this._index] === " ") {
                 this.combineSpace()
+                this.addSeparator()
                 continue
             }
 
             if (this._word[this._index] === `"`) {
                 this.quoteWords()
+                this.addSeparator()
                 continue
             }
 
@@ -116,6 +122,7 @@ class HapinTransformer {
                 this._res += this._word[this._index]
             }
 
+            this.addSeparator()
             this._index++
             continue
         }

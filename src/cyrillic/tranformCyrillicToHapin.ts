@@ -49,3 +49,9 @@ const hapinScheme: CyrillicSchemeType = [
 export const transformCyrillicToHapin = (o: string) => {
     return transformCyrillicToExtend(o, hapinScheme)
 }
+
+export const transformCyrillicToHapinArray = (o: string) => {
+    return transformCyrillicToHapin(o)
+        .split(`\u200b`)
+        .filter((s) => !!s)
+}

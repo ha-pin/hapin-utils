@@ -59,7 +59,7 @@ class ArabicTransformer {
     private searchNextFlag() {
         // 获取子字符串空格坐标
         const pos = this._word.indexOf(" ", this._index)
-        const pos1 = this._word.indexOf("\"", this._index)
+        const pos1 = this._word.indexOf('"', this._index)
         if (pos !== -1 && pos1 !== -1) {
             this._flag = [this._flag[1], Math.min(pos, pos1)]
         }
@@ -78,7 +78,7 @@ class ArabicTransformer {
     }
 
     private quoteWords() {
-        const pos = this._word.indexOf("\"", this._index + 1)
+        const pos = this._word.indexOf('"', this._index + 1)
         if (pos !== -1) {
             this._res += `"${this._word.substring(this._index + 1, pos)}"`
             this._index = pos + 1
@@ -91,7 +91,9 @@ class ArabicTransformer {
     private omitTheWeakToneModification = () => {
         // 省略弱音符号问题
         // 匹配 k g ye 但是不匹配 ng gh
-        const tmp = this._word.substring(this._flag[0], this._flag[1]).replace(/([ng|gh])/g, "")
+        const tmp = this._word
+            .substring(this._flag[0], this._flag[1])
+            .replace(/([ng|gh])/g, "")
         if (/([k|g])/.test(tmp) || /ye/.test(tmp)) {
             this._omit = true
         }
@@ -132,6 +134,12 @@ class ArabicTransformer {
             const c = this._word[this._index]
             const next = this.next()
 
+            // 处理特殊字符
+            if (c === `\u200b`) {
+                this._index++
+                continue
+            }
+
             // 处理空格合并
             if (c === " ") {
                 this.combineSpace()
@@ -139,7 +147,7 @@ class ArabicTransformer {
             }
 
             // 处理引用状态
-            if (c === "\"") {
+            if (c === '"') {
                 this.quoteWords()
                 continue
             }
@@ -152,6 +160,12 @@ class ArabicTransformer {
 
             // 处理双字符字母
             if (c === "s") {
+                if (next === `\u200b`) {
+                    this._res += HapinArabic["s"]
+                    this._index += 2
+                    continue
+                }
+
                 if (next === "h") {
                     this._res += HapinArabic["sh"]
                     this._index += 2
@@ -163,6 +177,12 @@ class ArabicTransformer {
             }
 
             if (c === "g") {
+                if (next === `\u200b`) {
+                    this._res += HapinArabic["g"]
+                    this._index += 2
+                    continue
+                }
+
                 if (next === "h") {
                     this._res += HapinArabic["gh"]
                     this._index += 2
@@ -174,6 +194,12 @@ class ArabicTransformer {
             }
 
             if (c === "c") {
+                if (next === `\u200b`) {
+                    this._res += HapinArabic["t"] + HapinArabic["s"]
+                    this._index += 2
+                    continue
+                }
+
                 if (next === "h") {
                     this._res += HapinArabic["ch"]
                     this._index += 2
@@ -185,6 +211,12 @@ class ArabicTransformer {
             }
 
             if (c === "n") {
+                if (next === `\u200b`) {
+                    this._res += HapinArabic["n"]
+                    this._index += 2
+                    continue
+                }
+
                 if (next === "g") {
                     this._res += HapinArabic["ng"]
                     this._index += 2
@@ -196,6 +228,12 @@ class ArabicTransformer {
             }
 
             if (c === "h") {
+                if (next === `\u200b`) {
+                    this._res += HapinArabic["h"]
+                    this._index += 2
+                    continue
+                }
+
                 if (next === "h") {
                     this._res += HapinArabic["hh"]
                     this._index += 2
@@ -207,6 +245,11 @@ class ArabicTransformer {
             }
 
             if (c === "y") {
+                if (next === `\u200b`) {
+                    this._index += 2
+                    continue
+                }
+
                 // 支持 yu -> xu
                 if (next === "u") {
                     this.addWTM()
@@ -237,6 +280,7 @@ class ArabicTransformer {
             } else {
                 this._res += c
             }
+
             this._index++
             continue
         }
