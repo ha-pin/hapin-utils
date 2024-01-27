@@ -136,6 +136,7 @@ class ArabicTransformer {
 
             // 处理特殊字符
             if (c === `\u200b`) {
+                this._res += `\u200b`
                 this._index++
                 continue
             }
@@ -162,6 +163,7 @@ class ArabicTransformer {
             if (c === "s") {
                 if (next === `\u200b`) {
                     this._res += HapinArabic["s"]
+                    this._res += `\u200b`
                     this._index += 2
                     continue
                 }
@@ -179,6 +181,7 @@ class ArabicTransformer {
             if (c === "g") {
                 if (next === `\u200b`) {
                     this._res += HapinArabic["g"]
+                    this._res += `\u200b`
                     this._index += 2
                     continue
                 }
@@ -196,6 +199,7 @@ class ArabicTransformer {
             if (c === "c") {
                 if (next === `\u200b`) {
                     this._res += HapinArabic["t"] + HapinArabic["s"]
+                    this._res += `\u200b`
                     this._index += 2
                     continue
                 }
@@ -213,6 +217,7 @@ class ArabicTransformer {
             if (c === "n") {
                 if (next === `\u200b`) {
                     this._res += HapinArabic["n"]
+                    this._res += `\u200b`
                     this._index += 2
                     continue
                 }
@@ -230,6 +235,7 @@ class ArabicTransformer {
             if (c === "h") {
                 if (next === `\u200b`) {
                     this._res += HapinArabic["h"]
+                    this._res += `\u200b`
                     this._index += 2
                     continue
                 }
@@ -289,12 +295,24 @@ class ArabicTransformer {
     }
 }
 
-export const transformHapinToArabic = (h: string) => {
+export const transformHapinToArabic = (h: string, clean = true) => {
     if (!h) {
         return ""
     }
 
-    const res = new ArabicTransformer(toLowerCase(h)).go()
+    const res = new ArabicTransformer(toLowerCase(h))
+        .go()
+        .replace(/(?=[\s])( +)(?=[\!\#-\/\:-\@])/g, "")
 
-    return res.replace(/(?=[\s])( +)(?=[\!\#-\/\:-\@])/g, "")
+    return clean ? res.replace(/\u200b/g, "") : res
+}
+
+export const transformHapinToArabicArray = (h: string) => {
+    if (!h) {
+        return []
+    }
+
+    return transformHapinToArabic(h, false)
+        .split(`\u200b`)
+        .filter((s) => !!s)
 }

@@ -133,16 +133,16 @@ class HapinTransformer {
 
 export const transformCyrillicToExtend = (
     o: string,
-    scheme: CyrillicSchemeType
+    scheme: CyrillicSchemeType,
+    clean: boolean = true
 ) => {
     if (!o) {
         return ""
     }
 
-    const res = new HapinTransformer(
-        handleTones(toLowerCase(o)),
-        scheme[1]
-    ).go()
+    const res = new HapinTransformer(handleTones(toLowerCase(o)), scheme[1])
+        .go()
+        .replace(/(?=[\s])( +)(?=[\!\#-\/\:-\@])/g, "")
 
-    return res.replace(/(?=[\s])( +)(?=[\!\#-\/\:-\@])/g, "")
+    return clean ? res.replace(/\u200b/g, "") : res
 }

@@ -84,10 +84,14 @@ class HapinTransformer {
     private quoteWords() {
         const pos = this._word.indexOf('"', this._index + 1)
         if (pos !== -1) {
-            this._res += `"${this._word.substring(this._index + 1, pos)}"`
+            this._res += `"${this._word
+                .substring(this._index + 1, pos)
+                .replace(/\u200b/g, "")}"`
             this._index = pos + 1
         } else {
-            this._res += `"${this._word.substring(this._index + 1)}"`
+            this._res += `"${this._word
+                .substring(this._index + 1)
+                .replace(/\u200b/g, "")}"`
             this._index = this._word.length - 1
         }
     }
@@ -101,6 +105,13 @@ class HapinTransformer {
             const c = this._word[this._index]
             const next = this._word[this._index + 1]
 
+            // 处理特殊字符
+            if (c === `\u200b`) {
+                this._res += `\u200b`
+                this._index++
+                continue
+            }
+
             if (c === " ") {
                 this.combineSpace()
                 continue
@@ -113,6 +124,13 @@ class HapinTransformer {
 
             // 处理普通字符
             if (c === "s") {
+                if (next === `\u200b`) {
+                    this._res += this._hc["s"]
+                    this._res += `\u200b`
+                    this._index += 2
+                    continue
+                }
+
                 if (next === "h") {
                     if (this._word[this._index + 2] === "s") {
                         this.correct()
@@ -128,6 +146,13 @@ class HapinTransformer {
             }
 
             if (c === "g") {
+                if (next === `\u200b`) {
+                    this._res += this._hc["g"]
+                    this._res += `\u200b`
+                    this._index += 2
+                    continue
+                }
+
                 if (next === "h") {
                     this._res += this._hc["gh"]
                     this._index += 2
@@ -139,6 +164,13 @@ class HapinTransformer {
             }
 
             if (c === "c") {
+                if (next === `\u200b`) {
+                    this._res += this._hc["t"] + this._hc["s"]
+                    this._res += `\u200b`
+                    this._index += 2
+                    continue
+                }
+
                 if (next === "h") {
                     this._res += this._hc["ch"]
                     this._index += 2
@@ -150,6 +182,13 @@ class HapinTransformer {
             }
 
             if (c === "n") {
+                if (next === `\u200b`) {
+                    this._res += this._hc["n"]
+                    this._res += `\u200b`
+                    this._index += 2
+                    continue
+                }
+
                 if (next === "g") {
                     this._res += this._hc["ng"]
                     this._index += 2
@@ -161,6 +200,13 @@ class HapinTransformer {
             }
 
             if (c === "h") {
+                if (next === `\u200b`) {
+                    this._res += this._hc["h"]
+                    this._res += `\u200b`
+                    this._index += 2
+                    continue
+                }
+
                 if (next === "h") {
                     this._res += this._hc["hh"]
                     this._index += 2
@@ -172,6 +218,11 @@ class HapinTransformer {
             }
 
             if (c === "y") {
+                if (next === `\u200b`) {
+                    this._index += 2
+                    continue
+                }
+
                 // 支持 yu -> xu
                 if (next === "u") {
                     this._res += this._hc["xu"]
@@ -213,12 +264,16 @@ class HapinTransformer {
 
 export const transformHapinToExtend = (
     h: string,
-    scheme: HapinDirectSchemeType
+    scheme: HapinDirectSchemeType,
+    clean = true
 ) => {
     if (!h) {
         return ""
     }
 
-    const res = new HapinTransformer(toLowerCase(h), scheme).go()
-    return res.replace(/(?=[\s])( +)(?=[\!\#-\/\:-\@])/g, "")
+    const res = new HapinTransformer(toLowerCase(h), scheme)
+        .go()
+        .replace(/(?=[\s])( +)(?=[\!\#-\/\:-\@])/g, "")
+
+    return clean ? res.replace(/\u200b/g, "") : res
 }

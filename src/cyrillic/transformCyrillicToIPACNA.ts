@@ -1,4 +1,5 @@
 import { ipaCorrector } from "../ipa/corrector"
+import { toLowerCase } from "../utils"
 import { CyrillicSchemeType, transformCyrillicToExtend } from "./extend"
 
 const ipaCNAScheme: CyrillicSchemeType = [
@@ -47,8 +48,8 @@ const ipaCNAScheme: CyrillicSchemeType = [
     },
 ]
 
-export const transformCyrillicToIPA_CNA = (o: string) => {
-    const ext = transformCyrillicToExtend(o.toLowerCase(), ipaCNAScheme)
+export const transformCyrillicToIPA_CNA = (o: string, clean = true) => {
+    const ext = transformCyrillicToExtend(toLowerCase(o), ipaCNAScheme, clean)
 
     if (!!o.match(/(ё|я|э|ю)/g)) {
         return ext

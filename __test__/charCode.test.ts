@@ -187,5 +187,5 @@ test('Test New Kazakh Char', () => {
         // "Ya"
     ].map(a => a.toLowerCase().charCodeAt(0))
 
-    console.log(aa)
+    // console.log(aa)
 })

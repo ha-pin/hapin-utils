@@ -1,5 +1,5 @@
 import { transformCyrillicToHapin } from "./tranformCyrillicToHapin"
 import { transformHapinToArabic } from "../hapin/transformHapinToArabic"
 
-export const transformCyrillicToArabic = (o: string) =>
-    transformHapinToArabic(transformCyrillicToHapin(o))
+export const transformCyrillicToArabic = (o: string, clean = true) =>
+    transformHapinToArabic(transformCyrillicToHapin(o, clean), clean)

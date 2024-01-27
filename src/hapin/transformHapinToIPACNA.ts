@@ -44,8 +44,8 @@ const ipaCNAScheme: HapinDirectSchemeType = [
     },
 ]
 
-export const transformHapinToIPA_CNA = (o: string) => {
-    let ext = transformHapinToExtend(o, ipaCNAScheme)
+export const transformHapinToIPA_CNA = (o: string, clean = true) => {
+    let ext = transformHapinToExtend(o, ipaCNAScheme, clean)
 
     return ipaCorrector(ext)
 }

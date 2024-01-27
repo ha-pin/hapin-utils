@@ -140,7 +140,11 @@ class HapinTransformer {
     }
 }
 
-export const transformArabicToHapin = (o: string, easy = false) => {
+export const transformArabicToHapin = (
+    o: string,
+    clean = true,
+    easy = false
+) => {
     const array = o
         .split(/( +)/g)
         .map((item) => item.trim())
@@ -152,12 +156,13 @@ export const transformArabicToHapin = (o: string, easy = false) => {
             return new HapinTransformer(tmp).go(easy)
         })
         .join(" ")
+        .replace(/(?=[\s])( +)(?=[\!\#-\/\:-\@])/g, "")
 
-    return res.replace(/(?=[\s])( +)(?=[\!\#-\/\:-\@])/g, "")
+    return clean ? res.replace(/\u200b/g, "") : res
 }
 
 export const transformArabicToHapinArray = (o: string) => {
-    return transformArabicToHapin(o)
-        .split(/\u200b/)
+    return transformArabicToHapin(o, false)
+        .split(`\u200b`)
         .filter((s) => !!s)
 }
