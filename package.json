@@ -1,6 +1,6 @@
 {
   "name": "hapin-utils",
-  "version": "3.2.0",
+  "version": "4.0.0",
   "description": "Hapin JavaScript(TypeScript) 开放工具包",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
